@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Registration Form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /* Gradient background using your two colors */
+      background: linear-gradient(90deg, #3F5EFB, #FC466B);
+    }
+
+    .form-container {
+      background: white;
+      padding: 35px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .form-container:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #3F5EFB;
+    }
+
+    input,
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      border-color: #3F5EFB;
+      outline: none;
+      box-shadow: 0 0 4px rgba(63, 94, 251, 0.4);
+    }
+
+    button {
+      background-color: #3F5EFB;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2b47c7; /* Slightly darker shade for hover */
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Student Registration</h2>
+    <form name="contact-form">
+      <input type="text" name="Name" placeholder="Full Name" required>
+      <input type="text" name="Reg.No" placeholder="Registration Number" required>
+      <input type="date" name="DOB" placeholder="Date of Birth" required>
+      <input type="text" name="Mobile.No" placeholder="Mobile Number" required>
+      <input type="email" name="Email" placeholder="Email Address" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyy-rhwqbd4tyIQGjZUhG3ZxYw9ZpgxflhLdcs7bJvBTjdcYYjQUzqNMqhQAiG9Stb3/exec';
+    const form = document.forms['contact-form'];
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === 'success') {
+          alert('✅ Form submitted successfully!');
+          form.reset();
+        } else {
+          alert('❌ Error: ' + JSON.stringify(data.error));
+        }
+      })
+      .catch(err => alert('⚠️ Submit error: ' + err));
+    });
+  </script>
+
+</body>
+</html>
